@@ -105,7 +105,9 @@ website_route_rules = [
 # ------------
 
 # before_install = "appexa.install.before_install"
-# after_install = "appexa.install.after_install"
+# Seed the starter content so a fresh site comes up with a working website
+# rather than thirteen empty doctypes.
+after_install = "appexa.setup.install.after_install"
 
 # Uninstallation
 # ------------
