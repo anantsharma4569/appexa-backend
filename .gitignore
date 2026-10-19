@@ -53,3 +53,6 @@ jspm_packages/
 
 # Aider AI Chat
 .aider*
+
+# Built output from the appexa-frontend repo (see www/site.py)
+appexa/public/frontend/

@@ -92,6 +92,15 @@ app_license = "mit"
 # 	"filters": "appexa.utils.jinja_filters"
 # }
 
+# Website
+# ----------
+
+# Serve the appexa-frontend SPA, and let its client-side router own every path
+# under /site so a deep link or a refresh still reaches the app.
+website_route_rules = [
+	{"from_route": "/site/<path:app_path>", "to_route": "site"},
+]
+
 # Installation
 # ------------
 

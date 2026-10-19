@@ -1,0 +1,40 @@
+{#
+	Serves the built appexa-frontend SPA. This deliberately does not extend
+	templates/base.html: the site brings its own header, footer and styling, and
+	the Frappe website chrome would sit on top of it.
+
+	Assets land in appexa/public/frontend/ when the frontend repo is built with
+	FRAPPE_OUT pointing there; Frappe publishes that folder at
+	/assets/appexa/frontend/.
+#}
+<!doctype html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Appexa Pharmaceuticals Private Limited</title>
+<meta name="description" content="Appexa Pharmaceuticals Private Limited — tablets, capsules, syrups, injectables, ointments and nutraceuticals. ISO 9001:2015. Muzaffarnagar, Uttar Pradesh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+{%- for path in frontend_css %}
+<link rel="stylesheet" href="{{ path }}">
+{%- endfor %}
+</head>
+<body>
+<div id="app"></div>
+{#- Lets a signed-in staff member use the same forms; Guests have no session. -#}
+<script>window.csrf_token = "{{ frappe.session.csrf_token }}";</script>
+{%- for path in frontend_js %}
+<script type="module" src="{{ path }}"></script>
+{%- endfor %}
+{%- if not frontend_js %}
+<div style="padding:3rem 1.5rem;font-family:system-ui,sans-serif;max-width:40rem;margin:0 auto">
+	<h1 style="font-size:1.3rem">The frontend has not been built yet</h1>
+	<p>Build the appexa-frontend repo into this app, then reload:</p>
+	<pre style="background:#f4f6f5;padding:.8rem;border-radius:6px;overflow:auto">cd appexa-frontend
+FRAPPE_OUT=../apexxa/apps/appexa/appexa/public/frontend yarn build</pre>
+</div>
+{%- endif %}
+</body>
+</html>
